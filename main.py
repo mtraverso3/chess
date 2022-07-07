@@ -24,11 +24,26 @@ class Board:
         # white pieces:
         for col in range(8):
             self.board[col][6].setPiece(Pawn(True))
-        # self.board[0][0] =
+        self.board[0][7].setPiece(Rook(True))
+        self.board[7][7].setPiece(Rook(True))
+        self.board[1][7].setPiece(Knight(True))
+        self.board[6][7].setPiece(Knight(True))
+        self.board[2][7].setPiece(Bishop(True))
+        self.board[5][7].setPiece(Bishop(True))
+        self.board[4][7].setPiece(King(True))
+        self.board[3][7].setPiece(Queen(True))
 
         # black pieces
         for col in range(8):
             self.board[col][1].setPiece(Pawn(False))
+        self.board[0][0].setPiece(Rook(False))
+        self.board[7][0].setPiece(Rook(False))
+        self.board[1][0].setPiece(Knight(False))
+        self.board[6][0].setPiece(Knight(False))
+        self.board[2][0].setPiece(Bishop(False))
+        self.board[5][0].setPiece(Bishop(False))
+        self.board[4][0].setPiece(King(False))
+        self.board[3][0].setPiece(Queen(False))
 
 
 class Tile:
@@ -71,8 +86,7 @@ def printCoordBoard():
 if __name__ == '__main__':
     board = Board()
     print(board.toString())
-    print(board.board[0][6].getPiece())
     print(printCoordBoard())
-    print(str(board.board[0][6].getValidMoves(board)))
+    print(str(board.board[1][7].getValidMoves(board)))
 
     pass
