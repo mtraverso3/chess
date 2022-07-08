@@ -55,7 +55,7 @@ class Rook(Piece):
             while (0 <= x < 8 and 0 <= y < 8) and (
                     board.board[x][y].getPiece() is None or board.board[x][y].getPiece().isWhite() != self.isWhite()):
                 validTiles.append(board.board[x][y])
-                if board.board[x][y].getPiece().isWhite() != self.isWhite():
+                if board.board[x][y].getPiece() is not None and board.board[x][y].getPiece().isWhite() != self.isWhite():
                     break
                 x += direction[0]
                 y += direction[1]
@@ -69,7 +69,7 @@ class Knight(Piece):
 
     def getValidMoves(self, board: Board, pos: Tile) -> List[Tile]:
         validTiles = []
-        for direction in [(1, 2), (1, -2), (-1, 2), (-1, -2), (2, 1), (2, -1), (-2, 1), (2, -1)]:
+        for direction in [(1, 2), (1, -2), (-1, 2), (-1, -2), (2, 1), (2, -1), (-2, 1), (-2, -1)]:
             x = pos.getX() + direction[0]
             y = pos.getY() + direction[1]
             if (0 <= x < 8 and 0 <= y < 8) and (
@@ -91,7 +91,7 @@ class Bishop(Piece):
             while (0 <= x < 8 and 0 <= y < 8) and (
                     board.board[x][y].getPiece() is None or board.board[x][y].getPiece().isWhite() != self.isWhite()):
                 validTiles.append(board.board[x][y])
-                if board.board[x][y].getPiece().isWhite() != self.isWhite():
+                if board.board[x][y].getPiece() is not None and board.board[x][y].getPiece().isWhite() != self.isWhite():
                     break
                 x += direction[0]
                 y += direction[1]
@@ -104,7 +104,32 @@ class Queen(Piece):
         super().__init__(white)
 
     def getValidMoves(self, board: Board, pos: Tile) -> List[Tile]:
-        pass
+        validTiles = []
+
+        # diagonals
+        for direction in [(1, 1), (-1, -1), (1, -1), (-1, 1)]:
+            x = pos.getX() + direction[0]
+            y = pos.getY() + direction[1]
+            while (0 <= x < 8 and 0 <= y < 8) and (
+                    board.board[x][y].getPiece() is None or board.board[x][y].getPiece().isWhite() != self.isWhite()):
+                validTiles.append(board.board[x][y])
+                if board.board[x][y].getPiece() is not None and board.board[x][y].getPiece().isWhite() != self.isWhite():
+                    break
+                x += direction[0]
+                y += direction[1]
+
+        # vertical/horizontal
+        for direction in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+            x = pos.getX() + direction[0]
+            y = pos.getY() + direction[1]
+            while (0 <= x < 8 and 0 <= y < 8) and (
+                    board.board[x][y].getPiece() is None or board.board[x][y].getPiece().isWhite() != self.isWhite()):
+                validTiles.append(board.board[x][y])
+                if board.board[x][y].getPiece() is not None and board.board[x][y].getPiece().isWhite() != self.isWhite():
+                    break
+                x += direction[0]
+                y += direction[1]
+        return validTiles
 
 
 class King(Piece):
@@ -112,4 +137,11 @@ class King(Piece):
         super().__init__(white)
 
     def getValidMoves(self, board: Board, pos: Tile) -> List[Tile]:
-        pass
+        validTiles = []
+        for direction in [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (-1, -1), (1, -1), (-1, 1)]:
+            x = pos.getX() + direction[0]
+            y = pos.getY() + direction[1]
+            if (0 <= x < 8 and 0 <= y < 8) and (
+                    board.board[x][y].getPiece() is None or board.board[x][y].getPiece().isWhite() != self.isWhite()):
+                validTiles.append(board.board[x][y])
+        return validTiles
