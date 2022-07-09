@@ -1,7 +1,10 @@
 from abc import ABC, abstractmethod
-from main import Tile
-from main import Board
 from typing import List
+
+import pygame as pygame
+
+from main import Board
+from main import Tile
 
 
 class Piece(ABC):
@@ -15,8 +18,26 @@ class Piece(ABC):
     def getValidMoves(self, board: Board, pos: Tile) -> List[Tile]:
         pass
 
+    @abstractmethod
+    def getImg(self):
+        pass
+
+
+# class Cannon(Piece):
+#     def getValidMoves(self, board: Board, pos: Tile) -> List[Tile]:
+#         return []
+#
+#     def getImg(self):
+#         return pygame.image.load('resources/BoatW.png')
+#
+#     def __init__(self, white):
+#         super().__init__(white)
+
 
 class Pawn(Piece):
+    def getImg(self):
+        return pygame.image.load('resources/PawnW.png') if self.isWhite() else pygame.image.load('resources/PawnB.png')
+
     def __init__(self, white):
         super().__init__(white)
 
@@ -43,6 +64,10 @@ class Pawn(Piece):
 
 
 class Rook(Piece):
+
+    def getImg(self):
+        return pygame.image.load('resources/RookW.png') if self.isWhite() else pygame.image.load('resources/RookB.png')
+
     def __init__(self, white):
         super().__init__(white)
 
@@ -55,7 +80,8 @@ class Rook(Piece):
             while (0 <= x < 8 and 0 <= y < 8) and (
                     board.board[x][y].getPiece() is None or board.board[x][y].getPiece().isWhite() != self.isWhite()):
                 validTiles.append(board.board[x][y])
-                if board.board[x][y].getPiece() is not None and board.board[x][y].getPiece().isWhite() != self.isWhite():
+                if board.board[x][y].getPiece() is not None and board.board[x][
+                    y].getPiece().isWhite() != self.isWhite():
                     break
                 x += direction[0]
                 y += direction[1]
@@ -64,6 +90,11 @@ class Rook(Piece):
 
 
 class Knight(Piece):
+
+    def getImg(self):
+        return pygame.image.load('resources/KnightW.png') if self.isWhite() else pygame.image.load(
+            'resources/KnightB.png')
+
     def __init__(self, white):
         super().__init__(white)
 
@@ -79,6 +110,11 @@ class Knight(Piece):
 
 
 class Bishop(Piece):
+
+    def getImg(self):
+        return pygame.image.load('resources/BishopW.png') if self.isWhite() else pygame.image.load(
+            'resources/BishopB.png')
+
     def __init__(self, white):
         super().__init__(white)
 
@@ -91,7 +127,8 @@ class Bishop(Piece):
             while (0 <= x < 8 and 0 <= y < 8) and (
                     board.board[x][y].getPiece() is None or board.board[x][y].getPiece().isWhite() != self.isWhite()):
                 validTiles.append(board.board[x][y])
-                if board.board[x][y].getPiece() is not None and board.board[x][y].getPiece().isWhite() != self.isWhite():
+                if board.board[x][y].getPiece() is not None and board.board[x][
+                    y].getPiece().isWhite() != self.isWhite():
                     break
                 x += direction[0]
                 y += direction[1]
@@ -100,6 +137,11 @@ class Bishop(Piece):
 
 
 class Queen(Piece):
+
+    def getImg(self):
+        return pygame.image.load('resources/QueenW.png') if self.isWhite() else pygame.image.load(
+            'resources/QueenB.png')
+
     def __init__(self, white):
         super().__init__(white)
 
@@ -113,7 +155,8 @@ class Queen(Piece):
             while (0 <= x < 8 and 0 <= y < 8) and (
                     board.board[x][y].getPiece() is None or board.board[x][y].getPiece().isWhite() != self.isWhite()):
                 validTiles.append(board.board[x][y])
-                if board.board[x][y].getPiece() is not None and board.board[x][y].getPiece().isWhite() != self.isWhite():
+                if board.board[x][y].getPiece() is not None and board.board[x][
+                    y].getPiece().isWhite() != self.isWhite():
                     break
                 x += direction[0]
                 y += direction[1]
@@ -125,7 +168,8 @@ class Queen(Piece):
             while (0 <= x < 8 and 0 <= y < 8) and (
                     board.board[x][y].getPiece() is None or board.board[x][y].getPiece().isWhite() != self.isWhite()):
                 validTiles.append(board.board[x][y])
-                if board.board[x][y].getPiece() is not None and board.board[x][y].getPiece().isWhite() != self.isWhite():
+                if board.board[x][y].getPiece() is not None and board.board[x][
+                    y].getPiece().isWhite() != self.isWhite():
                     break
                 x += direction[0]
                 y += direction[1]
@@ -133,6 +177,10 @@ class Queen(Piece):
 
 
 class King(Piece):
+
+    def getImg(self):
+        return pygame.image.load('resources/KingW.png') if self.isWhite() else pygame.image.load('resources/KingB.png')
+
     def __init__(self, white):
         super().__init__(white)
 
